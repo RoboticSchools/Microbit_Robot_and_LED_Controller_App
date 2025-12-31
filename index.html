@@ -637,7 +637,7 @@
                                 style="background:rgba(255, 255, 255, 0.15); color:white; border-color:rgba(255, 255, 255, 0.3);"
                                 onclick="sendCommand('white')">White</button>
                             <button class="grid-btn"
-                                style="background:rgba(255, 165, 0, 0.2); color:white; border-color:rgba(255, 165, 0, 0.4); font-size:14px;"
+                                style="background:rgba(255, 165, 0, 0.2); color:white; border-color:rgba(255, 165, 0, 0.4);"
                                 onclick="sendCommand('rgb off')">RGB Off</button>
                         </div>
 
@@ -664,9 +664,9 @@
 
                     <!-- Connection Header -->
                     <div class="conn-header"
-                        style="display:flex; flex-direction:column; align-items:center; justify-content:center; gap:16px; background:rgba(255,255,255,0.02); padding:10px; border-radius:12px; border:1px solid rgba(255,255,255,0.02); margin-bottom:0;">
+                        style="display:flex; flex-direction:column; align-items:center; justify-content:center; gap:20px; background:rgba(255,255,255,0.02); padding:20px; border-radius:12px; border:1px solid rgba(255,255,255,0.02); margin-bottom:0;">
                         <button id="mainConnectBtn" class="btn primary"
-                            style="background:linear-gradient(90deg,#00c3ff,#00ffa3); color:#0d0f12; width:auto; min-width:140px; border:none; padding:8px 20px; font-size:14px;">Connect
+                            style="background:linear-gradient(90deg,#00c3ff,#00ffa3); color:#0d0f12; width:auto; min-width:140px; border:none; padding:8px 20px; font-size:18px;">Connect
                             micro:bit</button>
                         <div id="mainConnStatus" class="status-badge" style="font-size:15px; padding:6px 14px;">Not
                             connected</div>
@@ -678,9 +678,9 @@
                         <div class="card">
                             <div class="slider-row" aria-hidden="false">
                                 <div class="slider-label">SPEED</div>
-                                <input id="slider1" type="range" min="0" max="100" value="50"
+                                <input id="slider1" type="range" min="0" max="100" value="100"
                                     aria-label="Speed control">
-                                <div id="v1" class="value-badge">50</div>
+                                <div id="v1" class="value-badge">255</div>
                             </div>
                             <div style="display:none;" id="voiceDisplay">
                                 <div id="voiceText"></div>
@@ -776,6 +776,8 @@
             voiceBtn.classList.remove('listening');
             if (voiceBtnLed) voiceBtnLed.classList.remove('listening');
             voiceTextEl.textContent = '—';
+            if (lastSentEl) lastSentEl.textContent = '—';
+            if (lastSentRobot) lastSentRobot.textContent = '—';
         }
         buttonModeBtn.addEventListener('click', () => switchMode('button'));
         voiceModeBtn.addEventListener('click', () => switchMode('voice'));
@@ -800,6 +802,13 @@
             sBusy = true;
             sendUART(`speed${scaledValue}`);
             setTimeout(() => sBusy = false, 140);
+        });
+
+        slider1.addEventListener('change', (e) => {
+            const scaledValue = Math.round((e.target.value / 100) * 255);
+            v1.textContent = scaledValue;
+            sendUART(`speed${scaledValue}`);
+            sBusy = false;
         });
 
         const arrowButtons = document.querySelectorAll('.arrow-btn');
