@@ -52,8 +52,9 @@
 
         html,
         body {
-            height: 100%;
+            height: 100vh;
             margin: 0;
+            overflow: hidden;
             font-family: var(--font-sans);
             background: var(--bg);
             color: var(--white);
@@ -62,12 +63,13 @@
         }
 
         .wrap {
-            min-height: 100%;
+            height: 100%;
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 36px;
+            padding: 20px;
             box-sizing: border-box;
+            overflow: hidden;
         }
 
         .app {
@@ -229,11 +231,11 @@
             background: var(--glass);
             color: var(--white);
             border: 1px solid rgba(255, 255, 255, 0.04);
-            padding: 12px 24px;
+            padding: 16px 32px;
             border-radius: 12px;
             cursor: pointer;
             font-weight: 800;
-            font-size: 14px;
+            font-size: 16px;
             transition: all .12s ease;
             user-select: none;
             position: relative;
@@ -558,7 +560,7 @@
             <!-- App Header Removed -->
 
             <div class="panels-container"
-                style="display:flex; width:100%; gap:var(--gap); justify-content:center; align-items:flex-start; flex-wrap:wrap; margin-top:75px;">
+                style="display:flex; width:100%; gap:var(--gap); justify-content:center; align-items:flex-start; flex-wrap:wrap; margin-top:100px;">
                 <div class="panel-left">
                     <div class="controller" id="controller">
                         <div class="arrow-btn up" data-dir="forward" id="btn-up" title="Forward" role="button"
@@ -602,7 +604,7 @@
 
                     <!-- LED Controller Layout (Hidden by default, shown in LED Mode) -->
                     <div class="led-layout" id="ledController"
-                        style="display:none; flex-direction:row; align-items:center; gap:40px; justify-content:center; flex-wrap:wrap; max-width:800px; padding:0 10px; height:var(--control-size);">
+                        style="display:none; flex-direction:row; align-items:center; gap:80px; justify-content:center; flex-wrap:wrap; max-width:800px; padding:0 10px; height:var(--control-size);">
 
 
                         <!-- Voice Moved -->
@@ -687,7 +689,7 @@
                         <div class="card"
                             style="margin-top:30px; display:flex; align-items:center; justify-content:center; padding:12px; color:var(--muted); opacity:0.9; min-height:60px;">
                             <div class="log-box"
-                                style="font-size:16px; font-weight:800; background:var(--accent); -webkit-background-clip:text; -webkit-text-fill-color:transparent;">
+                                style="font-size:24px; font-weight:800; background:var(--accent); -webkit-background-clip:text; -webkit-text-fill-color:transparent;">
                                 <span id="lastSentRobot">—</span>
                             </div>
                         </div>
@@ -698,7 +700,7 @@
                         <div class="card"
                             style="display:flex; align-items:center; justify-content:center; padding:12px; color:var(--muted); opacity:0.9; min-height:60px;">
                             <div class="log-box"
-                                style="font-size:16px; font-weight:800; background:var(--accent); -webkit-background-clip:text; -webkit-text-fill-color:transparent;">
+                                style="font-size:24px; font-weight:800; background:var(--accent); -webkit-background-clip:text; -webkit-text-fill-color:transparent;">
                                 <span id="lastSentVal">—</span>
                             </div>
                         </div>
