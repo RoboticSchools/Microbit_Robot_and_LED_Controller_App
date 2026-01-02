@@ -7,9 +7,7 @@
     <title>Microbit Controller App</title>
     <style>
         :root {
-            /* LED Controller Specific Vars */
             --led-glass: rgba(255, 255, 255, 0.05);
-
             --bg: #0d0f12;
             --white: #eafcff;
             --glass: rgba(255, 255, 255, 0.03);
@@ -76,7 +74,6 @@
             width: 1400px;
             max-width: 96vw;
             min-height: 85vh;
-            /* Added min-height to reduce vertical gap to screen edges */
             background: linear-gradient(180deg, rgba(255, 255, 255, 0.01), rgba(255, 255, 255, 0.008));
             border-radius: var(--radius);
             box-shadow: var(--shadow);
@@ -411,7 +408,7 @@
             background: radial-gradient(circle at center, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0.55) 20%, rgba(255, 255, 255, 0.18) 40%, transparent 60%);
         }
 
-        @media (max-width:1200px) {
+        @media (max-width: 1200px) {
             :root {
                 --control-size: 360px;
                 --arrow-size: 90px;
@@ -424,18 +421,25 @@
             }
         }
 
-        @media (max-width:900px) {
+        @media (max-width: 900px) {
             .app {
                 flex-direction: column;
-                padding: 18px;
+                padding: 20px;
+                height: auto;
+                min-height: 100vh;
+                overflow-y: auto;
             }
 
             .panel-left {
                 min-width: unset;
+                width: 100%;
+                padding: 10px;
             }
 
             .panel-right {
                 width: 100%;
+                max-width: 100%;
+                padding: 10px;
             }
 
             :root {
@@ -444,9 +448,73 @@
                 --center-size: 120px;
                 --gap: 20px;
             }
+
+            .top-header {
+                position: absolute;
+                top: 20px;
+                left: 20px;
+            }
+
+            .panels-container {
+                margin-top: 80px !important;
+            }
         }
 
-        /* LED Tab Styles */
+        @media (max-width: 600px) {
+            .logo {
+                height: 50px;
+            }
+
+            .top-header {
+                top: 15px;
+                left: 15px;
+            }
+
+            :root {
+                --control-size: 280px;
+                --arrow-size: 70px;
+                --center-size: 100px;
+                --ctrl-gap: 30px;
+            }
+
+            .arrow-btn {
+                border-radius: 14px;
+            }
+
+            .dot {
+                border-radius: 50%;
+            }
+
+            .controller {
+                gap: 10px;
+            }
+
+            .led-grid {
+                grid-template-columns: repeat(2, 1fr);
+                width: 100%;
+            }
+
+            .grid-btn {
+                width: auto;
+                height: 70px;
+                font-size: 16px;
+            }
+
+            .big-btn {
+                width: 100px;
+                height: 100px;
+            }
+
+            .mode-btn {
+                padding: 12px 20px;
+                font-size: 14px;
+            }
+
+            .card {
+                padding: 16px;
+            }
+        }
+
         .led-container {
             display: flex;
             flex-direction: column;
@@ -509,7 +577,6 @@
             box-shadow: none;
         }
 
-        /* Active Glow State */
         .btn-active {
             box-shadow: 0 0 20px var(--glow-color, rgba(0, 195, 255, 0.4)), inset 0 0 10px var(--glow-color, rgba(0, 195, 255, 0.2)) !important;
             border-color: var(--glow-color, #00c3ff) !important;
@@ -525,7 +592,6 @@
             display: flex;
             border: 1px solid rgba(255, 255, 255, 0.02);
             flex-direction: row;
-            /* Change to row for top bar */
             justify-content: center;
         }
 
@@ -556,9 +622,6 @@
     <div class="wrap">
         <div class="app" role="application" aria-label="Microbit Controller"
             style="flex-direction:column; align-items:center;">
-
-            <!-- App Header Removed -->
-
             <div class="panels-container"
                 style="display:flex; width:100%; gap:var(--gap); justify-content:center; align-items:flex-start; flex-wrap:wrap; margin-top:100px;">
                 <div class="panel-left">
@@ -569,14 +632,12 @@
                                 <path d="M12 4l-8 8h6v8h4v-8h6z" />
                             </svg>
                         </div>
-
                         <div class="arrow-btn left" data-dir="left" id="btn-left" title="Left" role="button"
                             tabindex="0" aria-pressed="false">
                             <svg class="arrow-icon" viewBox="0 0 24 24">
                                 <path d="M6 12l8-8v6h8v4h-8v6z" />
                             </svg>
                         </div>
-
                         <div class="dot" id="voiceBtn" title="Press and hold to speak" role="button" tabindex="0"
                             aria-pressed="false" aria-label="Voice input">
                             <svg viewBox="0 0 24 24" aria-hidden="true">
@@ -584,64 +645,25 @@
                                     d="M12 14a3 3 0 0 0 3-3V7a3 3 0 1 0-6 0v4a3 3 0 0 0 3 3zm5-3a5 5 0 0 1-10 0H5a7 7 0 0 0 6 6.92V21h2v-3.08A7 7 0 0 0 19 11h-2z" />
                             </svg>
                         </div>
-
                         <div class="arrow-btn right" data-dir="right" id="btn-right" title="Right" role="button"
                             tabindex="0" aria-pressed="false">
                             <svg class="arrow-icon" viewBox="0 0 24 24">
                                 <path d="M18 12l-8 8v-6H2v-4h8V4z" />
                             </svg>
                         </div>
-
                         <div class="arrow-btn down" data-dir="backward" id="btn-down" title="Backward" role="button"
                             tabindex="0" aria-pressed="false">
                             <svg class="arrow-icon" viewBox="0 0 24 24">
                                 <path d="M12 20l8-8h-6V4h-4v8H4z" />
                             </svg>
                         </div>
-
                         <div class="ripple" id="ripple"></div>
                     </div>
-
-                    <!-- LED Controller Layout (Hidden by default, shown in LED Mode) -->
                     <div class="led-layout" id="ledController"
                         style="display:none; flex-direction:row; align-items:center; gap:80px; justify-content:center; flex-wrap:wrap; max-width:800px; padding:0 10px; height:var(--control-size);">
-
-
-                        <!-- Voice Moved -->
-
-                        <!-- Left: RGB Grid -->
-                        <div class="grid-group" style="display:grid; grid-template-columns:repeat(2, 1fr); gap:14px;">
-                            <button class="grid-btn" style="border-color:rgba(255, 255, 255, 0.4);"
-                                onclick="sendCommand('on')">On</button>
-                            <button class="grid-btn" style="border-color:rgba(255, 255, 255, 0.4);"
-                                onclick="sendCommand('off')">Off</button>
-                            <button class="grid-btn"
-                                style="background:rgba(255, 77, 77, 0.2); color:white; border-color:rgba(255, 77, 77, 0.4);"
-                                onclick="sendCommand('red')">Red</button>
-                            <button class="grid-btn"
-                                style="background:rgba(77, 255, 77, 0.2); color:white; border-color:rgba(77, 255, 77, 0.4);"
-                                onclick="sendCommand('green')">Green</button>
-                            <button class="grid-btn"
-                                style="background:rgba(77, 77, 255, 0.2); color:white; border-color:rgba(77, 77, 255, 0.4);"
-                                onclick="sendCommand('blue')">Blue</button>
-                            <button class="grid-btn"
-                                style="background:rgba(255, 255, 77, 0.2); color:white; border-color:rgba(255, 255, 77, 0.4);"
-                                onclick="sendCommand('yellow')">Yellow</button>
-                            <button class="grid-btn"
-                                style="background:rgba(77, 255, 255, 0.2); color:white; border-color:rgba(77, 255, 255, 0.4);"
-                                onclick="sendCommand('cyan')">Cyan</button>
-                            <button class="grid-btn"
-                                style="background:rgba(255, 77, 255, 0.2); color:white; border-color:rgba(255, 77, 255, 0.4);"
-                                onclick="sendCommand('magenta')">Magenta</button>
-                            <button class="grid-btn"
-                                style="background:rgba(255, 255, 255, 0.15); color:white; border-color:rgba(255, 255, 255, 0.3);"
-                                onclick="sendCommand('white')">White</button>
-                            <button class="grid-btn"
-                                style="background:rgba(255, 165, 0, 0.2); color:white; border-color:rgba(255, 165, 0, 0.4);"
-                                onclick="sendCommand('rgb off')">RGB Off</button>
+                        <div class="grid-group" id="ledGrid"
+                            style="display:grid; grid-template-columns:repeat(2, 1fr); gap:14px;">
                         </div>
-
-                        <!-- Right: Voice -->
                         <div class="center-group">
                             <button id="voiceBtnLed" class="voice-btn" title="Voice Control"
                                 style="width:150px; height:150px; border-radius:50%; background:var(--glass); border:2px solid rgba(255,255,255,0.1); cursor:pointer; display:grid; place-items:center;">
@@ -655,25 +677,20 @@
                         </div>
                     </div>
                 </div>
-
                 <div class="panel-right">
                     <div class="control-modes">
                         <button class="mode-btn active" id="voiceModeBtn">LED Control</button>
                         <button class="mode-btn" id="buttonModeBtn">Robot Control</button>
                     </div>
-
-                    <!-- Connection Header -->
                     <div class="conn-header"
                         style="display:flex; flex-direction:column; align-items:center; justify-content:center; gap:20px; background:rgba(255,255,255,0.02); padding:20px; border-radius:12px; border:1px solid rgba(255,255,255,0.02); margin-bottom:0;">
                         <button id="mainConnectBtn" class="btn primary"
-                            style="background:linear-gradient(90deg,#00c3ff,#00ffa3); color:#0d0f12; width:auto; min-width:140px; border:none; padding:8px 20px; font-size:18px;">Connect
-                            micro:bit</button>
+                            style="background:linear-gradient(90deg,#00c3ff,#00ffa3); color:#0d0f12; width:auto; min-width:140px; border:none; padding:8px 20px; font-size:16px;">Connect
+                            Micro:bit</button>
                         <div id="mainConnStatus" class="status-badge" style="font-size:15px; padding:6px 14px;">Not
                             connected</div>
                         <div class="conn-small" id="connSmall" style="display:none;"></div>
                     </div>
-
-                    <!-- ROBOT TAB -->
                     <div id="robotTab" class="tab-content active">
                         <div class="card">
                             <div class="slider-row" aria-hidden="false">
@@ -694,8 +711,6 @@
                             </div>
                         </div>
                     </div>
-
-                    <!-- LED TAB (Empty now as controls are on left) -->
                     <div id="ledTab" class="tab-content">
                         <div class="card"
                             style="display:flex; align-items:center; justify-content:center; padding:12px; color:var(--muted); opacity:0.9; min-height:60px;">
@@ -706,17 +721,14 @@
                         </div>
                     </div>
                 </div>
-            </div> <!-- End panels-container -->
+            </div>
         </div>
     </div>
-
     <script>
-        // Make sendUART globally available as sendCommand for inline buttons
         window.sendCommand = sendUART;
-
         const mainConnStatus = document.getElementById('mainConnStatus');
         const mainConnectBtn = document.getElementById('mainConnectBtn');
-        const connSmall = document.getElementById('connSmall'); // Kept for legacy ref
+        const connSmall = document.getElementById('connSmall');
         const lastSentEl = document.getElementById('lastSentVal');
         const lastSentRobot = document.getElementById('lastSentRobot');
         const slider1 = document.getElementById('slider1');
@@ -727,10 +739,8 @@
         const ripple = document.getElementById('ripple');
         const controller = document.getElementById('controller');
         const ledController = document.getElementById('ledController');
-
         const robotTab = document.getElementById('robotTab');
         const ledTab = document.getElementById('ledTab');
-
         function setConnText(t, color) {
             mainConnStatus.textContent = t;
             mainConnStatus.style.color = color || 'var(--muted)';
@@ -744,7 +754,6 @@
                 mainConnectBtn.style.color = '#0d0f12';
             }
         }
-
         let currentMode = 'button';
         const buttonModeBtn = document.getElementById('buttonModeBtn');
         const voiceModeBtn = document.getElementById('voiceModeBtn');
@@ -752,8 +761,6 @@
             currentMode = mode;
             buttonModeBtn.classList.toggle('active', mode === 'button');
             voiceModeBtn.classList.toggle('active', mode === 'voice');
-
-            // Tab Toggle
             if (mode === 'button') {
                 robotTab.classList.add('active');
                 ledTab.classList.remove('active');
@@ -761,17 +768,13 @@
                 robotTab.classList.remove('active');
                 ledTab.classList.add('active');
             }
-
             if (mode === 'voice') {
-                // LED Mode
                 controller.style.display = 'none';
                 ledController.style.display = 'flex';
             } else {
-                // Robot Mode
-                controller.style.display = 'grid'; // Originally it was grid
+                controller.style.display = 'grid';
                 ledController.style.display = 'none';
             }
-
             document.querySelectorAll('.arrow-btn').forEach(btn => btn.classList.remove('active', 'pressed'));
             voiceBtn.classList.remove('listening');
             if (voiceBtnLed) voiceBtnLed.classList.remove('listening');
@@ -782,7 +785,6 @@
         buttonModeBtn.addEventListener('click', () => switchMode('button'));
         voiceModeBtn.addEventListener('click', () => switchMode('voice'));
         switchMode('voice');
-
         function animateRipple() {
             const size = Math.max(160, window.innerWidth * 0.08);
             ripple.style.width = ripple.style.height = size + 'px';
@@ -793,7 +795,6 @@
                 { duration: 520, easing: 'cubic-bezier(.2,.9,.3,1)' }
             );
         }
-
         let sBusy = false;
         slider1.addEventListener('input', (e) => {
             const scaledValue = Math.round((e.target.value / 100) * 255);
@@ -803,14 +804,12 @@
             sendUART(`speed${scaledValue}`);
             setTimeout(() => sBusy = false, 140);
         });
-
         slider1.addEventListener('change', (e) => {
             const scaledValue = Math.round((e.target.value / 100) * 255);
             v1.textContent = scaledValue;
             sendUART(`speed${scaledValue}`);
             sBusy = false;
         });
-
         const arrowButtons = document.querySelectorAll('.arrow-btn');
         arrowButtonsSetup();
         function arrowButtonsSetup() {
@@ -838,17 +837,16 @@
                 btn.addEventListener('keyup', (e) => { if (e.key === ' ' || e.key === 'Enter') { release(e); } });
             });
         }
-
         const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition || null;
         let recognizer = null;
         let isListening = false;
+        let micActive = false;
         let silenceTimer = null;
         let restartBackoff = 250;
         const RESTART_BACKOFF_MAX = 2000;
         const SILENCE_MS = 2000;
         let lastResultAt = 0;
         let nextUtteranceShouldReplace = false;
-
         function clearSilenceTimer() {
             if (silenceTimer) { clearTimeout(silenceTimer); silenceTimer = null; }
         }
@@ -859,16 +857,16 @@
                 nextUtteranceShouldReplace = true;
             }, SILENCE_MS);
         }
-
         function createRecognizer() {
             if (!SpeechRecognition) return null;
+            if (recognizer) return recognizer;
             const r = new SpeechRecognition();
             r.lang = 'en-US';
             r.interimResults = true;
             r.maxAlternatives = 1;
             r.continuous = true;
-
             r.onresult = (e) => {
+                if (!isListening) return;
                 const now = Date.now();
                 if (lastResultAt && (now - lastResultAt) > SILENCE_MS) {
                     voiceTextEl.textContent = '';
@@ -884,11 +882,12 @@
                 if (!transcript) return;
                 voiceTextEl.textContent = transcript;
                 if (lastSentEl) lastSentEl.textContent = transcript;
-                if (lastSentRobot) lastSentRobot.textContent = transcript; // Print speech in Robot tab too
+                if (lastSentRobot) lastSentRobot.textContent = transcript;
                 const mapped = mapVoiceToCommand(transcript);
                 if (mapped) {
                     sendUART(mapped);
                     highlightArrowForCommand(mapped);
+                    highlightLedButtonForCommand(mapped);
                 }
                 if (/\bsend\b/i.test(transcript)) {
                     const cleaned = transcript.replace(/\bsend\b/gi, '').trim();
@@ -897,23 +896,20 @@
                 lastResultAt = now;
                 armSilenceTimer();
             };
-
             r.onend = () => {
                 if (isListening) {
+                    // Explicitly active in UI - Must keep alive
                     setTimeout(() => {
                         try { r.start(); } catch (e) { }
                     }, restartBackoff);
                     restartBackoff = Math.min(restartBackoff * 1.5, RESTART_BACKOFF_MAX);
                 } else {
-                    voiceBtn.classList.remove('listening');
-                    if (voiceBtnLed) voiceBtnLed.classList.remove('listening');
-                    // Re-enable LED buttons
-                    document.querySelectorAll('.led-layout .big-btn, .led-layout .grid-btn').forEach(b => { b.style.pointerEvents = 'auto'; });
-                    setConnText('Voice: Stopped', 'white');
-                    clearSilenceTimer();
+                    // UI is 'Stopped'. Engine has ended naturally (timeout/silence).
+                    // Do NOT auto-restart here, as it causes random permission prompts on file://
+                    // Just mark hardware as inactive so next 'Start' knows to request permission again if needed.
+                    micActive = false;
                 }
             };
-
             r.onerror = (err) => {
                 if (!isListening) return;
                 if (err.error === 'no-speech' || err.error === 'aborted' || err.error === 'network') {
@@ -927,73 +923,54 @@
                 isListening = false;
                 voiceBtn.classList.remove('listening');
                 if (voiceBtnLed) voiceBtnLed.classList.remove('listening');
-                // Re-enable LED buttons
-                document.querySelectorAll('.led-layout .big-btn, .led-layout .grid-btn').forEach(b => { b.style.pointerEvents = 'auto'; });
+                // Buttons remain active
                 setConnText('Voice: Error', 'salmon');
                 clearSilenceTimer();
             };
-
             return r;
         }
-
-        async function warmUpMic() {
-            if (!navigator.mediaDevices?.getUserMedia) return;
-            try {
-                const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-                stream.getTracks().forEach(t => t.stop());
-            } catch (e) { }
+        if (SpeechRecognition) {
+            recognizer = createRecognizer();
         }
-
         async function startListening() {
             if (!SpeechRecognition) {
                 alert('Speech recognition not supported in this browser.');
                 return;
             }
             if (isListening) return;
-            await warmUpMic();
             if (!recognizer) recognizer = createRecognizer();
             if (!recognizer) return;
             try {
-                restartBackoff = 250;
-                recognizer.start();
                 isListening = true;
                 voiceBtn.classList.add('listening');
                 if (voiceBtnLed) voiceBtnLed.classList.add('listening');
-
-                // Disable LED buttons and remove glow
+                // Remove button disabling logic to allow simultaneous control
                 document.querySelectorAll('.led-layout .big-btn, .led-layout .grid-btn').forEach(b => {
                     b.classList.remove('btn-active');
-                    b.style.pointerEvents = 'none';
                 });
-
                 setConnText('Voice: Listening (click to stop)', '#b5f27d');
                 armSilenceTimer();
+                if (!micActive) {
+                    micActive = true;
+                    restartBackoff = 250;
+                    recognizer.start();
+                }
             } catch (e) {
+                console.error(e);
                 isListening = false;
+                micActive = false;
                 voiceBtn.classList.remove('listening');
                 if (voiceBtnLed) voiceBtnLed.classList.remove('listening');
-                // Re-enable LED buttons if start failed
-                document.querySelectorAll('.led-layout .big-btn, .led-layout .grid-btn').forEach(b => { b.style.pointerEvents = 'auto'; });
                 setConnText('Voice: Failed to start', 'salmon');
             }
         }
-
         function stopListening() {
-            if (!recognizer) return;
-            try {
-                isListening = false;
-                recognizer.stop();
-            } catch (e) {
-                isListening = false;
-            }
+            isListening = false;
             voiceBtn.classList.remove('listening');
             if (voiceBtnLed) voiceBtnLed.classList.remove('listening');
-            // Re-enable LED buttons
-            document.querySelectorAll('.led-layout .big-btn, .led-layout .grid-btn').forEach(b => { b.style.pointerEvents = 'auto'; });
             setConnText('Voice: Stopped', 'white');
             clearSilenceTimer();
         }
-
         voiceBtn.addEventListener('click', (e) => {
             e.preventDefault();
             if (!isListening) startListening();
@@ -1012,47 +989,69 @@
                 voiceBtn.click();
             }
         });
-
-        var up_state = false; var down_state = false; var left_state = false; var right_state = false; var z_state = false; var x_state = false; var space_state = false;
-
-        document.addEventListener("keydown", keyDownHandler, false);
-        document.addEventListener("keyup", keyUpHandler, false);
-
-        function keyDownHandler(event) {
-            var keyPressed = String.fromCharCode(event.keyCode);
-            if (keyPressed == "&") { sendUART("forward"); up_state = true; }
-            if (keyPressed == "(") { down_state = true; sendUART("backward"); }
-            if (keyPressed == "%") { left_state = true; sendUART("left"); }
-            if (keyPressed == "'") { right_state = true; sendUART("right"); }
-            if (keyPressed == " ") { space_state = true; }
-            if (keyPressed == "Z") { z_state = true; sendUART("z"); }
-            if (keyPressed == "X") { x_state = true; sendUART("x"); }
-        }
-
-        function keyUpHandler(event) {
-            var keyPressed = String.fromCharCode(event.keyCode);
-            if (keyPressed == "&") { up_state = false; sendUART("stop"); }
-            if (keyPressed == "(") { down_state = false; sendUART("stop"); }
-            if (keyPressed == "%") { left_state = false; sendUART("stop"); }
-            if (keyPressed == "'") { right_state = false; sendUART("stop"); }
-            if (keyPressed == " ") { space_state = false; sendUART("stop"); }
-            if (keyPressed == "Z") { z_state = false; sendUART("stop"); }
-            if (keyPressed == "X") { x_state = false; sendUART("stop"); }
-        }
-
+        const keyMap = {
+            'ArrowUp': 'forward', 'ArrowDown': 'backward', 'ArrowLeft': 'left', 'ArrowRight': 'right',
+            'w': 'forward', 's': 'backward', 'a': 'left', 'd': 'right',
+            'z': 'z', 'x': 'x', ' ': 'stop'
+        };
+        let activeKeys = new Set();
+        document.addEventListener('keydown', (e) => {
+            if (currentMode !== 'button') return;
+            if (e.repeat) return;
+            const cmd = keyMap[e.key] || keyMap[e.code];
+            if (cmd) {
+                activeKeys.add(e.key);
+                sendUART(cmd);
+                if (cmd !== 'stop') toggleArrowVisual(cmd, true);
+            }
+        });
+        document.addEventListener('keyup', (e) => {
+            if (currentMode !== 'button') return;
+            const cmd = keyMap[e.key] || keyMap[e.code];
+            if (cmd && activeKeys.has(e.key)) {
+                activeKeys.delete(e.key);
+                if (cmd !== 'stop') toggleArrowVisual(cmd, false);
+                if (activeKeys.size === 0) sendUART('stop');
+                else sendUART('stop');
+            }
+        });
+        const ledOps = [
+            { l: 'On', c: 'on', b: '', k: '' }, { l: 'Off', c: 'off', b: '', k: '' },
+            { l: 'Red', c: 'red', b: '#ff4d4d', k: 'rgba(255, 77, 77, 0.2)' },
+            { l: 'Green', c: 'green', b: '#4dff4d', k: 'rgba(77, 255, 77, 0.2)' },
+            { l: 'Blue', c: 'blue', b: '#4d4dff', k: 'rgba(77, 77, 255, 0.2)' },
+            { l: 'Yellow', c: 'yellow', b: '#ffff4d', k: 'rgba(255, 255, 77, 0.2)' },
+            { l: 'Cyan', c: 'cyan', b: '#4dffff', k: 'rgba(77, 255, 255, 0.2)' },
+            { l: 'Magenta', c: 'magenta', b: '#ff4dff', k: 'rgba(255, 77, 255, 0.2)' },
+            { l: 'White', c: 'white', b: '#ffffff', k: 'rgba(255, 255, 255, 0.15)' },
+            { l: 'RGB Off', c: 'rgb off', b: '#ffa500', k: 'rgba(255, 165, 0, 0.2)' }
+        ];
+        const ledGrid = document.getElementById('ledGrid');
+        ledOps.forEach(op => {
+            const b = document.createElement('button');
+            b.className = 'grid-btn';
+            b.textContent = op.l;
+            b.dataset.cmd = op.c; // Store command for lookup
+            if (op.b) {
+                b.style.background = op.k;
+                b.style.borderColor = op.b.replace(')', ', 0.4)').replace('rgb', 'rgba');
+                if (!b.style.borderColor) b.style.borderColor = op.b;
+                b.style.color = 'white';
+            } else {
+                b.style.borderColor = 'rgba(255,255,255,0.4)';
+            }
+            b.onclick = () => sendUART(op.c);
+            ledGrid.appendChild(b);
+        });
         const UART_SERVICE_UUID = '6e400001-b5a3-f393-e0a9-e50e24dcca9e';
         const UART_NOTIFY_CHAR_UUID = '6e400002-b5a3-f393-e0a9-e50e24dcca9e';
         const UART_WRITE_CHAR_UUID = '6e400003-b5a3-f393-e0a9-e50e24dcca9e';
-
         let uBitDevice = null;
         let notifyCharacteristic = null;
         let writeCharacteristic = null;
-
         let queue = Promise.resolve();
         function queueGattOperation(operation) { queue = queue.then(operation, operation); return queue; }
-
         function showCharInfo(char, name) { if (!char) return console.log(name + ': null'); console.log(`${name} properties:`, { broadcast: char.properties.broadcast, read: char.properties.read, write: char.properties.write, writeWithoutResponse: char.properties.writeWithoutResponse, notify: char.properties.notify, indicate: char.properties.indicate }); }
-
         async function connectButtonPressed() {
             try {
                 setConnText('Pairing...', 'yellow');
@@ -1067,42 +1066,34 @@
                 const service = await server.getPrimaryService(UART_SERVICE_UUID);
                 setConnText('Getting characteristics...', 'yellow');
                 notifyCharacteristic = await service.getCharacteristic(UART_NOTIFY_CHAR_UUID);
-
                 if (notifyCharacteristic.properties.notify || notifyCharacteristic.properties.indicate) {
                     await notifyCharacteristic.startNotifications();
                     notifyCharacteristic.addEventListener('characteristicvaluechanged', onNotifyValueChanged);
                 }
                 writeCharacteristic = await service.getCharacteristic(UART_WRITE_CHAR_UUID);
-
                 setConnText('Connected: ' + (uBitDevice.name || 'Micro:Bit'), '#b5f27d');
-                // document.getElementById('connectBtn').textContent = 'Connected';
                 document.getElementById('robotShow') && document.getElementById('robotShow').classList && document.getElementById('robotShow').classList.add('robotShow_connected');
             } catch (err) {
                 console.error(err);
                 setConnText('Connection failed', 'salmon');
             }
         }
-
         function disconnectButtonPressed() {
             if (!uBitDevice) return;
             if (uBitDevice.gatt.connected) { uBitDevice.gatt.disconnect(); setConnText('Disconnected', 'white'); }
             else setConnText('Not connected', 'white');
         }
-
         function onDisconnected(event) {
             let device = event.target;
             setConnText('Disconnected', 'white');
-            // document.getElementById('connectBtn').textContent = 'Connect';
             document.getElementById('robotShow') && document.getElementById('robotShow').classList && document.getElementById('robotShow').classList.remove('robotShow_connected');
         }
-
         function onNotifyValueChanged(event) {
             const value = event.target.value;
             const decoder = new TextDecoder();
             const text = decoder.decode(value);
             if (text.trim() === 'S') console.log('Shaken!');
         }
-
         async function sendUART(payload) {
             if (lastSentEl) lastSentEl.textContent = payload;
             if (lastSentRobot) lastSentRobot.textContent = payload;
@@ -1122,31 +1113,44 @@
                 } catch (err) { setConnText('Send failed - Check Micro:Bit connection', 'salmon'); }
             })());
         }
-
         mainConnectBtn.addEventListener('click', () => {
             if (uBitDevice && uBitDevice.gatt.connected) disconnectButtonPressed();
             else connectButtonPressed();
         });
-        // connectBtn.addEventListener('click', connectButtonPressed);
-        // disconnectBtn.addEventListener('click', disconnectButtonPressed);
-
-        function valBetween(v, min, max) { return (Math.min(max, Math.max(min, v))); }
-
-        function allStop() { sendUART('STOP'); }
-
-        function highlightArrowForCommand(cmd) {
-            const mapping = { 'forward': 'btn-up', 'backward': 'btn-down', 'left': 'btn-left', 'right': 'btn-right', 'stop': 'btn-down' };
+        function toggleArrowVisual(cmd, active) {
+            const mapping = { 'forward': 'btn-up', 'backward': 'btn-down', 'left': 'btn-left', 'right': 'btn-right' };
             const id = mapping[cmd];
             if (!id) return;
             const el = document.getElementById(id);
-            if (!el) return;
-            el.classList.add('active');
-            setTimeout(() => el.classList.remove('active'), 360);
+            if (el) {
+                if (active) el.classList.add('active');
+                else el.classList.remove('active');
+            }
         }
+        function highlightArrowForCommand(cmd) {
+            toggleArrowVisual(cmd, true);
+            setTimeout(() => toggleArrowVisual(cmd, false), 360);
+        }
+        function highlightLedButtonForCommand(cmd) {
+            const btn = document.querySelector(`.grid-btn[data-cmd="${cmd}"]`);
+            if (btn) {
+                // Radio button behavior: Clear others first
+                document.querySelectorAll('.grid-btn').forEach(b => b.classList.remove('btn-active'));
 
+                // Manually trigger the visual active state
+                // Set glow color based on button border color or default
+                let glowColor = '#00c3ff';
+                if (btn.style.borderColor && btn.style.borderColor !== '') {
+                    glowColor = btn.style.borderColor.replace('0.4', '1').replace('0.3', '1');
+                }
+                btn.style.setProperty('--glow-color', glowColor);
+                btn.classList.add('btn-active');
+
+                // No timeout - stays active until next command
+            }
+        }
         function mapVoiceToCommand(text) {
             const t = text.toLowerCase();
-            // LED Commands
             if (t.match(/\brgb\s+off\b/)) return 'rgb off';
             const colors = ['red', 'green', 'blue', 'yellow', 'cyan', 'magenta', 'white'];
             for (const c of colors) {
@@ -1154,8 +1158,6 @@
             }
             if (t.match(/\bon\b/)) return 'on';
             if (t.match(/\boff\b/)) return 'off';
-
-            // Robot Commands
             if (t.match(/\b(forward|ahead|up)\b/)) return 'forward';
             if (t.match(/\b(back|backward|reverse|down)\b/)) return 'backward';
             if (t.match(/\bleft\b/)) return 'left';
@@ -1163,7 +1165,6 @@
             if (t.match(/\bstop\b/)) return 'stop';
             return null;
         }
-
         function attachClickEffectTo(el, options = {}) {
             el.addEventListener('pointerdown', (ev) => {
                 const rect = el.getBoundingClientRect();
@@ -1187,43 +1188,31 @@
                     try { rippleEl.remove(); } catch (e) { }
                 }, 520);
             }, { passive: true });
-
             const remove = () => { el.classList.remove('pressed'); };
             el.addEventListener('pointerup', remove);
             el.addEventListener('pointercancel', remove);
             el.addEventListener('pointerleave', remove);
         }
-
         const allInteractive = [
             ...document.querySelectorAll('.arrow-btn'),
             ...document.querySelectorAll('.mode-btn'),
             ...document.querySelectorAll('.btn'),
             voiceBtn
         ];
-
-        // Highlight Logic
         const cmdButtons = document.querySelectorAll('.big-btn, .grid-btn');
-        // Set default glow colors for big buttons
         document.querySelectorAll('.big-btn').forEach(btn => {
             btn.style.setProperty('--glow-color', '#00c3ff');
         });
-
         cmdButtons.forEach(btn => {
             btn.addEventListener('click', (e) => {
-                // Remove active class from all
                 cmdButtons.forEach(b => b.classList.remove('btn-active'));
                 const target = e.currentTarget;
-                // Dynamic Glow Color
                 if (target.style.borderColor && target.style.borderColor !== '') {
                     target.style.setProperty('--glow-color', target.style.borderColor.replace('0.4', '1').replace('0.3', '1'));
                 }
                 target.classList.add('btn-active');
-
-                // Also trigger standard click effect
-                // ...
             });
         });
-
         allInteractive.forEach(node => attachClickEffectTo(node));
     </script>
 </body>
